@@ -1,7 +1,12 @@
 import React from 'react'
 import styles from '../styles.module.css'
-import videoSrc from '../../../assets/video.mp4'
 import { LogoMark } from '../../../components/ui/Logo'
+
+// Vídeo da hero (YouTube): toca sozinho, sem som, em loop e sem controles.
+const HERO_VIDEO_ID = 'JxKQtUfOuK0'
+const HERO_VIDEO_SRC =
+  `https://www.youtube-nocookie.com/embed/${HERO_VIDEO_ID}` +
+  `?autoplay=1&mute=1&loop=1&playlist=${HERO_VIDEO_ID}&controls=0&playsinline=1&rel=0&modestbranding=1&disablekb=1&iv_load_policy=3`
 
 export const CoverSection: React.FC = () => {
   return (
@@ -29,7 +34,14 @@ export const CoverSection: React.FC = () => {
           <span>(Role para explorar)</span>
         </p>
         <div className={styles.gal}>
-          <video autoPlay loop muted playsInline src={videoSrc} />
+          <iframe
+            src={HERO_VIDEO_SRC}
+            title="Vídeo de apresentação da Cromática"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            referrerPolicy="strict-origin-when-cross-origin"
+            loading="eager"
+            tabIndex={-1}
+          />
         </div>
       </div>
     </section>

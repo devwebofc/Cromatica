@@ -82,73 +82,6 @@ p {
   background: #fff;
 }
 
-/* Loader */
-.load {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: var(--ink);
-  display: grid;
-  place-content: center;
-  text-align: center;
-  animation: loadOut 0.8s cubic-bezier(0.7, 0, 0.2, 1) 2.2s forwards;
-  pointer-events: none;
-}
-
-.load-mark {
-  display: block;
-  width: clamp(5.5rem, 16vw, 9rem);
-  margin: 0 auto 1.4rem;
-  color: var(--red);
-  opacity: 0;
-  transform: translateY(40%);
-  animation: markRise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s forwards;
-}
-
-.load b {
-  position: relative;
-  display: block;
-  font: 900 clamp(2.4rem, 11vw, 9rem)/1 var(--disp);
-  color: transparent;
-  -webkit-text-stroke: 2px #555;
-}
-
-.load b::after {
-  content: attr(data-t);
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--red);
-  -webkit-text-stroke: 0;
-  clip-path: inset(0 100% 0 0);
-  animation: loadFill 1.9s cubic-bezier(0.6, 0, 0.3, 1) 0.2s forwards;
-}
-
-.load p {
-  color: #bbb;
-  margin-top: 1rem;
-}
-
-@keyframes markRise {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes loadFill {
-  to {
-    clip-path: inset(0);
-  }
-}
-
-@keyframes loadOut {
-  to {
-    transform: translateY(-100%);
-    visibility: hidden;
-  }
-}
-
 /* Scroll progress indicator */
 .pg {
   position: fixed;
@@ -365,9 +298,6 @@ header nav {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .load {
-    display: none;
-  }
   * {
     scroll-behavior: auto !important;
   }

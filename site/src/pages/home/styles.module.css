@@ -86,17 +86,28 @@
 }
 
 .gal {
+  position: relative;
   aspect-ratio: 5/4;
   border-radius: 1.25rem;
   overflow: hidden;
-  background: #000;
+  /* Capa do vídeo enquanto o player do YouTube carrega */
+  background: #000 url("https://i.ytimg.com/vi/JxKQtUfOuK0/hqdefault.jpg") center / cover no-repeat;
+  isolation: isolate;
 }
 
-.gal video {
-  width: 100%;
+/* O player 16:9 é ampliado para cobrir todo o card (como object-fit: cover)
+   e não recebe cliques: funciona como vídeo de fundo. */
+.gal iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   height: 100%;
-  object-fit: cover;
-  display: block;
+  width: auto;
+  aspect-ratio: 16 / 9;
+  min-width: 100%;
+  transform: translate(-50%, -50%) scale(1.02);
+  border: 0;
+  pointer-events: none;
 }
 
 /* Intro */
@@ -388,6 +399,8 @@
 .st h3 {
   font-size: clamp(2rem, 6vw, 5.4rem);
   margin-bottom: 1.2rem;
+  overflow-wrap: anywhere; /* títulos sem espaço (ex.: Idontwannabeyouanymore) quebram dentro do card */
+  hyphens: auto;
 }
 
 .st p {
@@ -398,6 +411,7 @@
 .stContent {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 /* Capa do vídeo nos cards de filmes */

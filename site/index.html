@@ -20,8 +20,67 @@
       href="https://fonts.googleapis.com/css2?family=Phudu:wght@300..900&family=Outfit:wght@300..700&family=Instrument+Serif:ital@1&display=swap"
       rel="stylesheet"
     />
+    <style>
+      /* Loader: no HTML para aparecer antes do JavaScript carregar */
+      .load {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: #17171b;
+        display: grid;
+        place-content: center;
+        justify-items: center;
+        text-align: center;
+        padding: 0 1.25rem;
+        animation: loadOut 0.8s cubic-bezier(0.7, 0, 0.2, 1) 2.2s forwards;
+        pointer-events: none;
+        font-family: "Outfit", system-ui, sans-serif;
+      }
+      .load-mark {
+        display: block;
+        width: clamp(5.5rem, 22vw, 9rem);
+        margin-bottom: 1.4rem;
+        color: #e3000b;
+        opacity: 0;
+        transform: translateY(40%);
+        animation: markRise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s forwards;
+      }
+      .load b {
+        position: relative;
+        display: block;
+        font: 900 clamp(3rem, 16vw, 9rem)/1 "Phudu", "Arial Black", Impact, sans-serif;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        color: transparent;
+        -webkit-text-stroke: 2px #555;
+      }
+      /* Mesma caixa e alinhamento do contorno: o preenchimento fica exatamente por cima */
+      .load b::after {
+        content: attr(data-t);
+        position: absolute;
+        inset: 0;
+        color: #e3000b;
+        -webkit-text-stroke: 0;
+        clip-path: inset(0 100% 0 0);
+        animation: loadFill 1.9s cubic-bezier(0.6, 0, 0.3, 1) 0.2s forwards;
+      }
+      .load p {
+        color: #bbb;
+        margin: 1rem 0 0;
+        font-size: clamp(0.95rem, 3.6vw, 1.125rem);
+      }
+      @keyframes markRise { to { opacity: 1; transform: none; } }
+      @keyframes loadFill { to { clip-path: inset(0); } }
+      @keyframes loadOut { to { transform: translateY(-100%); visibility: hidden; } }
+      @media (prefers-reduced-motion: reduce) { .load { display: none; } }
+    </style>
   </head>
   <body>
+    <div class="load" aria-hidden="true">
+      <svg class="load-mark" viewBox="0 0 1200 600" aria-hidden="true"><defs><mask id="load-m" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="600"><path d="M0 600A600 600 0 0 1 1200 600Z" fill="#fff"/><g stroke="#000" stroke-width="26" fill="none"><path d="M0 0L600 600M0 195L405 600M0 385L215 600M1200 0L600 600M1200 195L795 600M1200 385L985 600"/></g><g stroke="#000" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M572 110L565 158M628 110L635 158"/><rect x="496" y="158" width="208" height="134"/><path d="M514 274L556 224L580 252M546 274L608 206L670 274Z"/><path d="M466 312H734" stroke-width="18"/><path d="M530 312L520 386M600 312V354M670 312L680 386"/></g><circle cx="534" cy="194" r="12" fill="#000"/></mask></defs><rect width="1200" height="600" fill="currentColor" mask="url(#load-m)"/></svg>
+      <b data-t="CROMÁTICA">CROMÁTICA</b>
+      <p>Música, Filmes e Educação</p>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
