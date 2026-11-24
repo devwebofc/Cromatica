@@ -95,6 +95,16 @@ p {
   pointer-events: none;
 }
 
+.load-mark {
+  display: block;
+  width: clamp(5.5rem, 16vw, 9rem);
+  margin: 0 auto 1.4rem;
+  color: var(--red);
+  opacity: 0;
+  transform: translateY(40%);
+  animation: markRise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s forwards;
+}
+
 .load b {
   position: relative;
   display: block;
@@ -117,6 +127,13 @@ p {
 .load p {
   color: #bbb;
   margin-top: 1rem;
+}
+
+@keyframes markRise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @keyframes loadFill {
@@ -177,7 +194,9 @@ header a, header button {
 }
 
 .brand svg {
-  width: 2.2rem;
+  width: 2.4rem;
+  height: auto;
+  display: block;
 }
 
 header nav {

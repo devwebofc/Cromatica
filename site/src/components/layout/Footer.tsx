@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../../pages/home/styles.module.css'
+import { LogoMark } from '../ui/Logo'
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear()
@@ -7,6 +8,14 @@ export const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
       <div className="w">
+        <div className={styles.fBrand}>
+          <LogoMark className={styles.fMark} title="Cromática" />
+          <p>
+            <b>Cromática</b>
+            Música, Filmes e Educação
+            <span>Patrocínio · Minas Gerais</span>
+          </p>
+        </div>
         <p className={styles.big} aria-hidden="true">
           Cromática
         </p>

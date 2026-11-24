@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '../styles.module.css'
+import { LogoMark } from '../../../components/ui/Logo'
 import videoSrc from '../../../assets/video.mp4'
 
 export const VideoSection: React.FC = () => {
@@ -42,6 +43,7 @@ export const VideoSection: React.FC = () => {
       id="vs"
     >
       <div className={styles.vp}>
+        <LogoMark className={styles.vsMark} />
         <div className={styles.vr} id="vr">
           <span>Vamos</span>
           <div className={styles.slot} id="slot" />

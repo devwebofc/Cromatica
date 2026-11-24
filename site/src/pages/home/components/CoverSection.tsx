@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../styles.module.css'
 import videoSrc from '../../../assets/video.mp4'
+import { LogoMark } from '../../../components/ui/Logo'
 
 export const CoverSection: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ export const CoverSection: React.FC = () => {
       <div className="w">
         <h1 className={styles.wm} aria-label="Cromática">
           <span aria-hidden="true">
-            CR<i></i>MÁTICA
+            CR<i><LogoMark /></i>MÁTICA
           </span>
         </h1>
       </div>

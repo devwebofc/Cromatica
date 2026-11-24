@@ -1,4 +1,5 @@
 import React from 'react'
+import { LogoMark } from '../ui/Logo'
 
 interface HeaderProps {
   onToggleMenu: () => void
@@ -8,10 +9,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onToggleMenu, menuOpen }) => {
   return (
     <header>
-      <a className="brand" href="#inicio">
-        <svg viewBox="0 0 200 100" aria-hidden="true">
-          <path d="M0 100A100 100 0 0 1 200 100Z" fill="#fff" />
-        </svg>
+      <a className="brand" href="#inicio" aria-label="Cromática — início">
+        <LogoMark className="brand-mark" />
         Cromática
       </a>
       <nav>

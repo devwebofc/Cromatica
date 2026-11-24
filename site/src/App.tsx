@@ -7,6 +7,7 @@ import { HomePage } from './pages/home/HomePage'
 import { VideoModal } from './components/ui/VideoModal'
 import { Drawer, TeamMember } from './components/ui/Drawer'
 import { embedUrl } from './script'
+import { LogoMark } from './components/ui/Logo'
 
 export const App: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -45,8 +46,9 @@ export const App: React.FC = () => {
   return (
     <>
       <div className="load" aria-hidden="true">
+        <LogoMark className="load-mark" />
         <b data-t="CROMÁTICA">CROMÁTICA</b>
-        <p>Música, filmes e educação.</p>
+        <p>Música, Filmes e Educação</p>
       </div>
 
       <ProgressBar />

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styles from '../styles.module.css'
+import { LogoMark } from '../../../components/ui/Logo'
 
 export const WheelSection: React.FC = () => {
   const wheelRef = useRef<HTMLDivElement>(null)
@@ -39,9 +40,11 @@ export const WheelSection: React.FC = () => {
 
   return (
     <section className={styles.wh} id="filmes">
-      <div className="w">
+      <div className={styles.whStaff} aria-hidden="true" />
+      <div className={`w ${styles.whStage}`}>
         <div ref={wheelRef} className={styles.wheel} id="wl" />
         <div className={styles.hub}>
+          <LogoMark className={styles.hubMark} />
           <h2>E agora, os filmes</h2>
           <p>Doze notas, doze cores, seis histórias.</p>
         </div>
