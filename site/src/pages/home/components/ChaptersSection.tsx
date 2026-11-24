@@ -3,35 +3,29 @@ import styles from '../styles.module.css'
 import fachadaImg from '../../../assets/escola-fachada.jpg'
 import pianoImg from '../../../assets/escola-piano.jpg'
 import bateriaImg from '../../../assets/escola-bateria.jpg'
-import { youtubeThumb } from '../../../script'
+import { VideoThumb } from '../../../components/ui/VideoThumb'
 
-// Capa do curta "Pestana e Rastilho" no YouTube; se não existir, usa um quadro da escola.
-const FILM_ID = 'T3-1M0ONxPA'
+// Capa do curta "Pestana e Rastilho" no YouTube; se não carregar, usa um quadro da escola.
+const FILM_URL = 'https://www.youtube.com/watch?v=T3-1M0ONxPA'
 
 interface ChapterPhotoProps {
-  src: string
+  src?: string
+  videoUrl?: string
   fallback?: string
   caption: string
   fallbackCaption?: string
 }
 
-const ChapterPhoto: React.FC<ChapterPhotoProps> = ({ src, fallback, caption, fallbackCaption }) => {
-  const [failed, setFailed] = useState(false)
-  const useFallback = failed && !!fallback
+const ChapterPhoto: React.FC<ChapterPhotoProps> = ({ src, videoUrl, fallback, caption, fallbackCaption }) => {
+  const [usingFallback, setUsingFallback] = useState(false)
   return (
     <figure className={styles.th}>
-      <img
-        src={useFallback ? fallback : src}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        onError={() => setFailed(true)}
-        onLoad={(e) => {
-          // O YouTube devolve uma imagem cinza pequena quando a capa em alta não existe
-          if (fallback && !failed && e.currentTarget.naturalWidth < 400) setFailed(true)
-        }}
-      />
-      <figcaption>{useFallback ? fallbackCaption ?? caption : caption}</figcaption>
+      {videoUrl ? (
+        <VideoThumb url={videoUrl} fallback={fallback} onSourceChange={setUsingFallback} />
+      ) : (
+        <img src={src} alt="" loading="lazy" decoding="async" />
+      )}
+      <figcaption>{usingFallback ? fallbackCaption ?? caption : caption}</figcaption>
     </figure>
   )
 }
@@ -95,7 +89,7 @@ export const ChaptersSection: React.FC = () => {
               </p>
             </div>
             <ChapterPhoto
-              src={youtubeThumb(FILM_ID)}
+              videoUrl={FILM_URL}
               fallback={pianoImg}
               caption="Pestana e Rastilho, curta da Cromática"
               fallbackCaption="Gravação na Cromática"

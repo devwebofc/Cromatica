@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles.module.css'
-import { CARD_COLORS, DEFAULT_FILMES, fetchSanityList, youtubeId, youtubeThumb } from '../../../script'
+import { CARD_COLORS, DEFAULT_FILMES, fetchSanityList, videoHost } from '../../../script'
+import { VideoThumb } from '../../../components/ui/VideoThumb'
 
 interface Filme {
   _id: string
@@ -42,7 +43,7 @@ export const FilmesSection: React.FC<FilmesSectionProps> = ({ onPlay }) => {
           const bg = colorPair[0]
           const textColor = colorPair[1]
           const topOffset = `calc(5rem + ${Math.min(i, 8)} * 1.1rem)`
-          const ytId = item.videoUrl ? youtubeId(item.videoUrl) : null
+          const host = item.videoUrl ? videoHost(item.videoUrl) : null
 
           return (
             <article
@@ -70,28 +71,18 @@ export const FilmesSection: React.FC<FilmesSectionProps> = ({ onPlay }) => {
                     }}
                     onClick={() => onPlay(item.videoUrl)}
                   >
-                    Assistir no YouTube ↗
+                    {host ? `Assistir no ${host} ↗` : 'Assistir ↗'}
                   </button>
                 )}
               </div>
-              {ytId && (
+              {host && (
                 <button
                   type="button"
                   className={styles.stThumb}
-                  aria-label={`Assistir "${item.title}" no YouTube`}
+                  aria-label={`Assistir "${item.title}" no ${host}`}
                   onClick={() => onPlay(item.videoUrl)}
                 >
-                  <img
-                    src={youtubeThumb(ytId)}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      const img = e.currentTarget
-                      const fallback = youtubeThumb(ytId, 'hqdefault')
-                      if (img.src !== fallback) img.src = fallback
-                    }}
-                  />
+                  <VideoThumb url={item.videoUrl} />
                   <span className={styles.stPlay} aria-hidden="true" />
                 </button>
               )}

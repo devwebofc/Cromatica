@@ -74,6 +74,48 @@ export function youtubeThumb(id, quality = 'maxresdefault') {
   return `https://i.ytimg.com/vi/${id}/${quality}.jpg`
 }
 
+// Capas do YouTube da maior para a menor. Nem todo vídeo tem maxres/sd;
+// hqdefault e mqdefault existem para todos.
+export function youtubeThumbCandidates(id) {
+  return ['maxresdefault', 'sddefault', 'hqdefault', 'mqdefault'].map((q) => youtubeThumb(id, q))
+}
+
+// Vimeo -> ID numérico (null para outros links)
+export function vimeoId(u) {
+  const s = safeUrl(u)
+  if (!s) return null
+  try {
+    const x = new URL(s)
+    const host = x.hostname.replace(/^www\./, '')
+    if (host !== 'vimeo.com' && host !== 'player.vimeo.com') return null
+    const m = /\/(\d+)(?:\/|$)/.exec(x.pathname)
+    return m ? m[1] : null
+  } catch (e) {
+    return null
+  }
+}
+
+// Capa do Vimeo pela API pública de oEmbed (funciona também com vídeos ocultos)
+const vimeoCache = {}
+export function vimeoThumb(u) {
+  const s = safeUrl(u)
+  if (!s) return Promise.resolve(null)
+  if (!vimeoCache[s]) {
+    vimeoCache[s] = fetch(`https://vimeo.com/api/oembed.json?width=1280&url=${encodeURIComponent(s)}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => (j && j.thumbnail_url ? safeUrl(j.thumbnail_url) : null))
+      .catch(() => null)
+  }
+  return vimeoCache[s]
+}
+
+// Nome do serviço do vídeo, para os textos dos botões
+export function videoHost(u) {
+  if (youtubeId(u)) return 'YouTube'
+  if (vimeoId(u)) return 'Vimeo'
+  return null
+}
+
 export const CARD_COLORS = [
   ['#E3000B', '#fff'],
   ['#FFE600', '#17171B'],
