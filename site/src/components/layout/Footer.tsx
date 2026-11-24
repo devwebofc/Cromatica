@@ -46,8 +46,8 @@ export const Footer: React.FC = () => {
               Facebook
             </a>
             <a href="politica-de-privacidade.html">Privacidade</a>
-            <a href="https://www.getdevweb.com.br" target="_blank" rel="noopener noreferrer">
-              Agência DevWeb
+            <a href="https://devwebresolv.com.br" target="_blank" rel="noopener noreferrer">
+              Desenvolvido por <b>DevWeb Agência</b>
             </a>
           </span>
         </div>

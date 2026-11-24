@@ -22,7 +22,7 @@ interface HomePageProps {
 export const HomePage: React.FC<HomePageProps> = ({ onPlayVideo, onSelectMember }) => {
   return (
     <main>
-      <CoverSection />
+      <CoverSection onPlay={onPlayVideo} />
       <div className="layer">
         <IntroSection />
         <ChaptersSection />

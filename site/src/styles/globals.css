@@ -211,7 +211,7 @@ header nav {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 85;
+  z-index: 96;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s;
@@ -230,7 +230,7 @@ header nav {
   width: min(520px, 100%);
   background: var(--ink);
   color: #fff;
-  z-index: 90;
+  z-index: 97; /* acima do header (95): o X não fica sob o botão Menu */
   transform: translateX(100%);
   visibility: hidden;
   transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1), visibility 0.5s;
@@ -270,7 +270,7 @@ header nav {
 
 .x {
   position: absolute;
-  top: 1.2rem;
+  top: calc(1.2rem + env(safe-area-inset-top, 0px));
   right: 1.2rem;
   width: 3rem;
   height: 3rem;
