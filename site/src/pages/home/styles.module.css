@@ -12,11 +12,12 @@
   gap: clamp(1rem, 2.2vh, 1.6rem);
 }
 
-@media (min-width: 900px) and (min-height: 640px) {
+@media (min-width: 900px) and (min-height: 600px) {
   .cover {
     position: sticky;
     top: 0;
     height: 100svh;
+    overflow: hidden; /* nada da capa vaza para outras seções (ex.: rodapé) */
   }
 }
 
@@ -60,7 +61,8 @@
 }
 
 .wm {
-  font-size: clamp(3rem, 17.4vw, 17rem);
+  /* Limitado também pela altura, para a capa caber inteira em notebooks */
+  font-size: clamp(3rem, min(17.4vw, 24svh), 17rem);
   line-height: 0.82;
   letter-spacing: -0.025em;
   white-space: nowrap;
@@ -119,30 +121,23 @@
   }
 }
 
-.cg {
-  flex: 1;
-  min-height: 0;
+/* Verbete: pronúncia + 3 significados numa linha */
+.cvDefs {
   display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
-  gap: clamp(1.5rem, 3.5vw, 3.5rem);
-  align-items: end;
-}
-
-.cvText {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1.2rem;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 3fr);
+  gap: 1.5rem;
+  align-items: start;
 }
 
 .cvPhon {
-  margin: 0 0 0.6rem;
-  font-size: 1rem;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .cvPhon b {
   font-weight: 600;
+  display: block;
 }
 
 .cvPhon span {
@@ -155,16 +150,17 @@
   padding: 0;
   list-style: none;
   counter-reset: def;
-  font-size: 0.98rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  font-size: 0.95rem;
   line-height: 1.4;
 }
 
 .def li {
   counter-increment: def;
   display: grid;
-  grid-template-columns: 1.6rem 1fr;
-  padding: 0.45rem 0;
-  border-top: 1px solid rgba(23, 23, 27, 0.15);
+  grid-template-columns: 1.4rem 1fr;
 }
 
 .def li::before {
@@ -173,11 +169,28 @@
   color: var(--red);
 }
 
+.cg {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.6fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  align-items: end;
+}
+
+.cvText {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.5vh, 1.6rem);
+  padding-bottom: 0.2rem;
+}
+
 .cgText {
   font: 500 clamp(1.3rem, 2.3vw, 2.1rem)/1.15 var(--txt);
   letter-spacing: -0.01em;
-  max-width: 20ch;
-  margin: 0 0 1.2rem;
+  max-width: 18ch;
+  margin: 0;
 }
 
 .cvCta {
@@ -197,19 +210,35 @@
   color: #fff;
 }
 
+/* Caixa que ocupa o espaço restante da capa; o vídeo 16:9 cabe inteiro nela */
+.galBox {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
 .gal {
   position: relative;
-  justify-self: end;
-  align-self: end;
-  width: min(100%, calc((100svh - 27rem) * 16 / 9));
-  min-width: min(100%, 28rem);
+  width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: 1.5rem;
   overflow: hidden;
   /* Capa do vídeo enquanto o player do YouTube carrega */
   background: #000 url("https://i.ytimg.com/vi/JxKQtUfOuK0/hqdefault.jpg") center / cover no-repeat;
-  box-shadow: 0 1.5rem 3.5rem rgba(23, 23, 27, 0.22);
+  box-shadow: 0 1.2rem 3rem rgba(23, 23, 27, 0.2);
   isolation: isolate;
+}
+
+@media (min-width: 900px) and (min-height: 600px) {
+  .galBox {
+    container-type: size;
+  }
+  .gal {
+    width: min(100cqw, 100cqh * 16 / 9);
+  }
 }
 
 /* O player 16:9 é ampliado para cobrir todo o card (como object-fit: cover)
@@ -392,22 +421,61 @@
 }
 
 .th {
-  aspect-ratio: 3/4;
+  position: relative;
+  margin: 0;
+  justify-self: end;
+  width: min(100%, calc((100svh - 11rem) * 0.8));
+  aspect-ratio: 4 / 5;
   border-radius: 2rem;
-  display: grid;
-  place-items: center;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.3);
+  transform: rotate(2deg);
+}
+
+.sl:nth-child(2) .th {
+  transform: rotate(-2deg);
 }
 
 .sl:nth-child(3) .th {
   background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1.5rem 3.5rem rgba(80, 60, 0, 0.3);
 }
 
-.th svg {
-  width: 70%;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 2.5;
+.th img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.th::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 55%, rgba(0, 0, 0, 0.6));
+  pointer-events: none;
+}
+
+.th figcaption {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  color: #fff;
+  font: 600 0.9rem/1.3 var(--txt);
+}
+
+.th figcaption::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--red);
+  margin-right: 0.5rem;
+  vertical-align: 0.05rem;
 }
 
 .sp {
@@ -1462,6 +1530,8 @@
 
 /* Rodapé */
 .footer {
+  position: relative;
+  z-index: 3;
   background: var(--ink);
   color: #fff;
   padding: 3rem 0 2rem;
@@ -1542,13 +1612,17 @@
   .dg {
     grid-template-columns: 1fr;
   }
-  .gal {
-    width: 100%;
-    min-width: 0;
-    justify-self: stretch;
+  .cvDefs,
+  .def {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
   }
-  .cvText {
-    gap: 1.4rem;
+  .cvDefs {
+    gap: 0.8rem;
+  }
+  .def li {
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(23, 23, 27, 0.15);
   }
   .cvTop {
     font-size: 0.8rem;

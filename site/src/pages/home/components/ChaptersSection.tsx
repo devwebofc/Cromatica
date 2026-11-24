@@ -1,5 +1,40 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '../styles.module.css'
+import fachadaImg from '../../../assets/escola-fachada.jpg'
+import pianoImg from '../../../assets/escola-piano.jpg'
+import bateriaImg from '../../../assets/escola-bateria.jpg'
+import { youtubeThumb } from '../../../script'
+
+// Capa do curta "Pestana e Rastilho" no YouTube; se não existir, usa um quadro da escola.
+const FILM_ID = 'T3-1M0ONxPA'
+
+interface ChapterPhotoProps {
+  src: string
+  fallback?: string
+  caption: string
+  fallbackCaption?: string
+}
+
+const ChapterPhoto: React.FC<ChapterPhotoProps> = ({ src, fallback, caption, fallbackCaption }) => {
+  const [failed, setFailed] = useState(false)
+  const useFallback = failed && !!fallback
+  return (
+    <figure className={styles.th}>
+      <img
+        src={useFallback ? fallback : src}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        onError={() => setFailed(true)}
+        onLoad={(e) => {
+          // O YouTube devolve uma imagem cinza pequena quando a capa em alta não existe
+          if (fallback && !failed && e.currentTarget.naturalWidth < 400) setFailed(true)
+        }}
+      />
+      <figcaption>{useFallback ? fallbackCaption ?? caption : caption}</figcaption>
+    </figure>
+  )
+}
 
 export const ChaptersSection: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null)
@@ -46,13 +81,7 @@ export const ChaptersSection: React.FC = () => {
                 as idades. Cada curso se adapta ao ritmo e ao objetivo de quem aprende.
               </p>
             </div>
-            <div className={styles.th}>
-              <svg viewBox="0 0 100 100">
-                <path d="M35 72V25l45-9v47" />
-                <circle cx="26" cy="72" r="10" />
-                <circle cx="71" cy="63" r="10" />
-              </svg>
-            </div>
+            <ChapterPhoto src={fachadaImg} caption="A sede da Cromática, em Patrocínio" />
           </div>
 
           <div className={styles.sl}>
@@ -65,12 +94,12 @@ export const ChaptersSection: React.FC = () => {
                 emocional.
               </p>
             </div>
-            <div className={styles.th}>
-              <svg viewBox="0 0 100 100">
-                <rect x="10" y="26" width="80" height="48" rx="6" />
-                <path d="M42 40l20 10-20 10z" />
-              </svg>
-            </div>
+            <ChapterPhoto
+              src={youtubeThumb(FILM_ID)}
+              fallback={pianoImg}
+              caption="Pestana e Rastilho, curta da Cromática"
+              fallbackCaption="Gravação na Cromática"
+            />
           </div>
 
           <div className={styles.sl}>
@@ -82,12 +111,7 @@ export const ChaptersSection: React.FC = () => {
                 internacionais do audiovisual. Duas linguagens, um mesmo propósito.
               </p>
             </div>
-            <div className={styles.th}>
-              <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="38" />
-                <path d="M12 50h76M50 12c-24 24-24 52 0 76M50 12c24 24 24 52 0 76" />
-              </svg>
-            </div>
+            <ChapterPhoto src={bateriaImg} caption="Aula de bateria na Cromática" />
           </div>
         </div>
         <div

@@ -44,48 +44,49 @@ export const CoverSection: React.FC<CoverSectionProps> = ({ onPlay }) => {
         </div>
       </div>
 
+      <div className={`w ${styles.cvDefs}`}>
+        <p className={styles.cvPhon}>
+          <b>cro·má·ti·ca</b> <span>/substantivo feminino/</span>
+        </p>
+        <ol className={styles.def}>
+          <li>Relativo às cores.</li>
+          <li>Escala musical formada por doze semitons.</li>
+          <li>Escola de música e produtora de filmes de Patrocínio, Minas Gerais.</li>
+        </ol>
+      </div>
+
       <div className={`w ${styles.cg}`}>
         <div className={styles.cvText}>
-          <div>
-            <p className={styles.cvPhon}>
-              <b>cro·má·ti·ca</b> <span>/substantivo feminino/</span>
-            </p>
-            <ol className={styles.def}>
-              <li>Relativo às cores.</li>
-              <li>Escala musical formada por doze semitons.</li>
-              <li>Escola de música e produtora de filmes de Patrocínio, Minas Gerais.</li>
-            </ol>
-          </div>
-          <div>
-            <p className={styles.cgText}>
-              Do primeiro acorde ao set de filmagem: arte que transforma vidas.
-            </p>
-            <div className={styles.cvCta}>
-              <a className="pill" href="#filmes">
-                Ver os filmes
-              </a>
-              <a className={`pill ${styles.cvGhost}`} href="#contato">
-                Fale com a gente
-              </a>
-            </div>
+          <p className={styles.cgText}>
+            Do primeiro acorde ao set de filmagem: arte que transforma vidas.
+          </p>
+          <div className={styles.cvCta}>
+            <a className="pill" href="#filmes">
+              Ver os filmes
+            </a>
+            <a className={`pill ${styles.cvGhost}`} href="#contato">
+              Fale com a gente
+            </a>
           </div>
         </div>
 
-        <div className={styles.gal}>
-          <iframe
-            src={HERO_VIDEO_SRC}
-            title="Vídeo de apresentação da Cromática"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            referrerPolicy="strict-origin-when-cross-origin"
-            loading="eager"
-            tabIndex={-1}
-          />
-          <span className={styles.galRec} aria-hidden="true">
-            Cromática
-          </span>
-          <button type="button" className={styles.galSound} onClick={() => onPlay(HERO_VIDEO_URL)}>
-            <span aria-hidden="true">▶</span> Assistir com som
-          </button>
+        <div className={styles.galBox}>
+          <div className={styles.gal}>
+            <iframe
+              src={HERO_VIDEO_SRC}
+              title="Vídeo de apresentação da Cromática"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              referrerPolicy="strict-origin-when-cross-origin"
+              loading="eager"
+              tabIndex={-1}
+            />
+            <span className={styles.galRec} aria-hidden="true">
+              Cromática
+            </span>
+            <button type="button" className={styles.galSound} onClick={() => onPlay(HERO_VIDEO_URL)}>
+              <span aria-hidden="true">▶</span> Assistir com som
+            </button>
+          </div>
         </div>
       </div>
     </section>
